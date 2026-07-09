@@ -1,0 +1,20 @@
+services:
+  # 1. Our Database Container
+  sqlserver:
+    # This tells Docker to pull the official Microsoft SQL Server image
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      # This is the 'sa' (System Administrator) password for our database. 
+      - MSSQL_SA_PASSWORD=FlowForge!123 
+    ports:
+      # This maps port 1433 on your Windows machine to port 1433 inside the container
+      - "1433:1433"
+
+  # 2. Our Message Queue Container
+  rabbitmq:
+    # This pulls RabbitMQ. The '3-management' tag means it includes a nice web UI!
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"   # The port our .NET apps will use to send messages
+      - "15672:15672" # The port for the web dashboard

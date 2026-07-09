@@ -5,13 +5,13 @@
 ---
 
 ## Phase 1: Foundation (0% Complete)
-- [ ] **Challenge 1.0: Version Control Setup**
+- [x] **Challenge 1.0: Version Control Setup**
   - Initialize a Git repository.
   - Create a proper `.gitignore` file for .NET and Node.js.
-- [ ] **Challenge 1.1: Scaffolding the Solution**
+- [x] **Challenge 1.1: Scaffolding the Solution**
   - Create the `.sln` file and the 3 .NET 8 Minimal API projects (`Gateway`, `DefinitionService`, `OrchestrationEngine`).
   - Add projects to the solution.
-- [ ] **Challenge 1.2: Docker Infrastructure**
+- [x] **Challenge 1.2: Docker Infrastructure**
   - Create `docker-compose.yml` for SQL Server and RabbitMQ.
 - [ ] **Challenge 1.3: Entity Framework Models**
   - Setup EF Core, create `WorkflowDefinition`, `Workspace`, models.
