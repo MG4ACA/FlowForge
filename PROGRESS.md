@@ -13,7 +13,7 @@
   - Add projects to the solution.
 - [x] **Challenge 1.2: Docker Infrastructure**
   - Create `docker-compose.yml` for SQL Server and RabbitMQ.
-- [ ] **Challenge 1.3: Entity Framework Models**
+- [x] **Challenge 1.3: Entity Framework Models**
   - Setup EF Core, create `WorkflowDefinition`, `Workspace`, models.
   - Run initial migrations.
 - [ ] **Challenge 1.4: Frontend Foundation**
