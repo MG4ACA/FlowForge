@@ -1,6 +1,6 @@
 # FlowForge: Project Progress & Challenge Tracker
 
-**Overall Completion:** 20% (1/5 Phases Completed)
+**Overall Completion:** 0% (0/5 Phases Completed)
 
 ---
 
