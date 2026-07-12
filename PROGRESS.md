@@ -20,12 +20,12 @@
   - Scaffold React with Vite (`react-ts`).
   - Install React Flow and dependencies.
 
-## Phase 2: Orchestration Core (0% Complete)
-- [ ] **Challenge 2.1: MassTransit Setup**
+## Phase 2: Orchestration Core (100% Complete)
+- [x] **Challenge 2.1: MassTransit Setup**
   - Configure `WorkflowStateMachine` and Saga persistence.
-- [ ] **Challenge 2.2: Execution Pipeline**
+- [x] **Challenge 2.2: Execution Pipeline**
   - Implement `StepExecutionPipeline` using `System.Threading.Channels`.
-- [ ] **Challenge 2.3: API Endpoints**
+- [x] **Challenge 2.3: API Endpoints**
   - Build CRUD for Definition Service and Execution endpoints for Orchestration.
 
 *(Phases 3, 4, and 5 will be detailed as we progress)*
