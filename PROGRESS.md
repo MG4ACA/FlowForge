@@ -28,4 +28,12 @@
 - [x] **Challenge 2.3: API Endpoints**
   - Build CRUD for Definition Service and Execution endpoints for Orchestration.
 
-*(Phases 3, 4, and 5 will be detailed as we progress)*
+## Phase 3: The Visual Canvas (33% Complete)
+- [x] **Challenge 3.1: React Flow Foundation**
+  - Render a basic drag-and-drop canvas using React Flow.
+- [ ] **Challenge 3.2: Custom Nodes**
+  - Build custom UI components for specific workflow steps (e.g., Email Node, Wait Node).
+- [ ] **Challenge 3.3: Backend Integration**
+  - Save the workflow graph to the Definition Service and trigger executions via the Orchestration API.
+
+*(Phases 4 and 5 will be detailed as we progress)*
