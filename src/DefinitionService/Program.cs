@@ -3,11 +3,19 @@ using DefinitionService.Data;
 using DefinitionService.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddCors(options=>{
+  options.AddDefaultPolicy(policy => {
+    policy.WithOrigins("http://localhost:5173")
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+  });
+});
 
 builder.Services. AddDbContext<DefinitionDbContext>
     (options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+app.UseCors();
 
 app.MapGet("/", () => "Hello World!");
 

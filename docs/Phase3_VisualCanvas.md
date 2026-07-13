@@ -1,80 +1,49 @@
-# FlowForge: Phase 3 The Visual Canvas
+# FlowForge: Phase 3 (The Visual Canvas) - Study Guide
 
-This document serves as a study guide and boilerplate reference for building the drag-and-drop UI using React Flow (`@xyflow/react`).
+This document summarizes the React Frontend concepts and boilerplate we implemented in Phase 3.
 
 ## 1. React Flow Architecture
+React Flow uses two fundamental concepts:
+1. **Nodes**: The physical blocks on the screen.
+2. **Edges**: The lines connecting the nodes.
 
-React Flow is an industry-standard library for building node-based graphical interfaces. It operates on two fundamental concepts:
+React operates on **Unidirectional Data Flow**. If a user drags a node or connects a wire, React Flow fires a warning (e.g., `onNodesChange` or `onConnect`). You must use a Lambda function to catch that warning and physically save the new data into React State (`useState`). If you don't save it to State, React throws the change away!
 
-1. **Nodes**: The physical blocks you see on the screen (e.g., an "Email" block or a "Wait" block). Each node has an `id`, a `position` (X/Y coordinates), and `data` (the label or configuration of the block).
-2. **Edges**: The lines connecting the nodes. An edge simply points from a `source` node ID to a `target` node ID.
+## 2. Custom Nodes & Handles (The Plumbing)
+To use custom HTML cards instead of boring white boxes, you build a standard React Component and map it in a dictionary (e.g., `const nodeTypes = { email: EmailNode }`).
 
-To render a canvas, you must provide the `<ReactFlow>` component with an array of Nodes and an array of Edges. 
-
-*Critical Rule:* The `<ReactFlow>` component MUST be placed inside a container `<div>` that has a defined width and height (like `100vw` and `100vh`). If the container has no height, the canvas will be completely invisible!
-
----
-
-## 2. The Foundation Boilerplate (Challenge 3.1)
-
-Below is the exact enterprise boilerplate needed to render a basic, interactive React Flow canvas. 
-
-You can use this code in `App.tsx` to get your first visual grid on the screen. It includes two hardcoded nodes connected by a single edge to prove the canvas works.
+Inside your custom component, you must add `<Handle />` components. 
+**Analogy:** Handles are the plumbing pipes sticking out of your node. Without them, you cannot connect any edges!
+- `type="target"`: Incoming pipes (usually `Position.Top`).
+- `type="source"`: Outgoing pipes (usually `Position.Bottom`).
 
 ```tsx
-import { useState } from 'react';
-import {
-  ReactFlow,
-  Controls,
-  Background,
-  applyNodeChanges,
-  applyEdgeChanges,
-  NodeChange,
-  EdgeChange,
-  Node,
-  Edge
-} from '@xyflow/react';
+import { Handle, Position } from '@xyflow/react';
 
-// CRITICAL: You must import the CSS, otherwise the canvas is invisible!
-import '@xyflow/react/dist/style.css';
-
-// 1. Define initial hardcoded Nodes
-const initialNodes: Node[] = [
-  { id: '1', position: { x: 250, y: 100 }, data: { label: 'Start Workflow' } },
-  { id: '2', position: { x: 250, y: 250 }, data: { label: 'Send Email' } }
-];
-
-// 2. Define initial hardcoded Edges (connecting node 1 to node 2)
-const initialEdges: Edge[] = [
-  { id: 'e1-2', source: '1', target: '2' }
-];
-
-function App() {
-  // We store the nodes and edges in React state so they can be updated when dragged
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
-
-  // These functions tell React Flow how to update state when a user drags a node around
-  const onNodesChange = (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds));
-  const onEdgesChange = (changes: EdgeChange[]) => setEdges((eds) => applyEdgeChanges(changes, eds));
-
+function EmailNode(props: any) {
   return (
-    // The container MUST have width/height defined
-    <div style={{ width: '100vw', height: '100vh' }}>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        fitView // Automatically zooms the camera to fit all nodes on screen
-      >
-        {/* These add the grid background and the zoom controls in the corner */}
-        <Background />
-        <Controls />
-      </ReactFlow>
+    <div className='email-node-card'>
+      <Handle type="target" position={Position.Top} />
+      <h3>{props.data.label}</h3>
+      <Handle type="source" position={Position.Bottom} />
     </div>
   );
 }
+export default EmailNode;
+```
 
-export default App;
+## 3. The Bouncer (CORS)
+When the Frontend tries to send data (`fetch`) to a backend on a different port (e.g., Port 5173 talking to Port 5258), the browser's security Bouncer steps in and blocks it. This is called **Cross-Origin Resource Sharing (CORS)**.
+
+To fix it, you must give the C# Backend a VIP Guest List to explicitly allow the React app to enter:
+```csharp
+// 1. Create the VIP List
+builder.Services.AddCors(options => {
+  options.AddDefaultPolicy(policy => {
+    policy.WithOrigins("http://localhost:5173").AllowAnyMethod().AllowAnyHeader();
+  });
+});
+
+// 2. Tell the app to use it
+app.UseCors();
 ```

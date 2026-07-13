@@ -6,7 +6,13 @@ using OrchestrationEngine.Execution;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options => {
+  options.AddDefaultPolicy(policy => {
+    policy.WithOrigins("http://localhost:5173")
+    .AllowAnyMethod()
+    .AllowAnyHeader();
+  });
+});
 builder.Services.AddDbContext<OrchestrationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddSingleton<StepExecutionPipeline>();
@@ -33,6 +39,7 @@ builder.Services.AddMassTransit(config=>
 );
 
 var app = builder.Build();
+app.UseCors();
 
 app.MapPost("/api/workflows/{workflowId}/start", async (Guid workflowId, IPublishEndpoint publishEndpoint)=>
 {

@@ -28,12 +28,20 @@
 - [x] **Challenge 2.3: API Endpoints**
   - Build CRUD for Definition Service and Execution endpoints for Orchestration.
 
-## Phase 3: The Visual Canvas (33% Complete)
+## Phase 3: The Visual Canvas (100% Complete)
 - [x] **Challenge 3.1: React Flow Foundation**
   - Render a basic drag-and-drop canvas using React Flow.
 - [x] **Challenge 3.2: Custom Nodes**
   - Build custom UI components for specific workflow steps (e.g., Email Node, Wait Node).
-- [ ] **Challenge 3.3: Backend Integration**
+- [x] **Challenge 3.3: Backend Integration**
   - Save the workflow graph to the Definition Service and trigger executions via the Orchestration API.
 
-*(Phases 4 and 5 will be detailed as we progress)*
+## Phase 4: API Gateway (0% Complete)
+- [ ] **Challenge 4.1: YARP Foundation**
+  - Install YARP (Yet Another Reverse Proxy) in the Gateway project.
+- [ ] **Challenge 4.2: Dynamic Routing**
+  - Configure YARP to route Frontend traffic to the isolated Definition and Orchestration microservices.
+- [ ] **Challenge 4.3: Frontend Refactoring**
+  - Update the React App to only communicate with the API Gateway.
+
+*(Phase 5 will be detailed as we progress)*
